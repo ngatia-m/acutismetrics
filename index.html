@@ -39,7 +39,7 @@ a{color:#0B6E66}a:hover{color:#08524C}
 <a href="#services" style="color: #3A424C; text-decoration: none; padding: 10px 0">What we do</a>
 <a href="#engage" style="color: #3A424C; text-decoration: none; padding: 10px 0">Working together</a>
 <a href="#about" style="color: #3A424C; text-decoration: none; padding: 10px 0">About</a>
-<a href="mailto:hello@acutismetrics.com?subject=Call%20request" style="background: #12171D; color: #FFFFFF; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: 500">Book a call</a>
+<a href="#contact" data-mail data-mail-subject="Call%20request" style="background: #12171D; color: #FFFFFF; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: 500">Book a call</a>
 </nav>
 </div>
 </header>
@@ -50,7 +50,7 @@ a{color:#0B6E66}a:hover{color:#08524C}
 <h1 style="margin: 0; font-size: 64px; line-height: 1.05; font-weight: 600; letter-spacing: -0.025em">Rigorous answers to expensive questions.</h1>
 <p style="margin: 0; font-size: 21px; color: #3A424C; max-width: 580px">Acutis Metrics is an applied economics and data science practice. We help companies, financial institutions, regulators and development organisations price, forecast, test and evaluate the decisions that matter most, using methods honed at Microsoft, Amazon and the World Bank.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px">
-<a href="mailto:hello@acutismetrics.com?subject=Call%20request" style="background: #0B6E66; color: #FFFFFF; text-decoration: none; padding: 14px 24px; border-radius: 6px; font-weight: 500; font-size: 17px">Book a call</a>
+<a href="#contact" data-mail data-mail-subject="Call%20request" style="background: #0B6E66; color: #FFFFFF; text-decoration: none; padding: 14px 24px; border-radius: 6px; font-weight: 500; font-size: 17px">Book a call</a>
 <a href="#services" style="border: 1px solid #12171D; color: #12171D; text-decoration: none; padding: 13px 23px; border-radius: 6px; font-weight: 500; font-size: 17px">What we do</a>
 </div>
 </div>
@@ -206,10 +206,10 @@ a{color:#0B6E66}a:hover{color:#08524C}
 <h2 style="margin: 0; font-size: 52px; line-height: 1.08; font-weight: 600; letter-spacing: -0.025em">Have a decision that hinges on a number?</h2>
 <p style="margin: 0; font-size: 20px; color: #3A424C">Book a 30-minute call about the question, the data and the deadline, or send a note using the form. No commitment: you’ll leave knowing whether and how we can help.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px">
-<a href="mailto:hello@acutismetrics.com?subject=Call%20request" style="background: #0B6E66; color: #FFFFFF; text-decoration: none; padding: 14px 24px; border-radius: 6px; font-weight: 500; font-size: 17px">Book a call</a>
+<a href="#contact" data-mail data-mail-subject="Call%20request" style="background: #0B6E66; color: #FFFFFF; text-decoration: none; padding: 14px 24px; border-radius: 6px; font-weight: 500; font-size: 17px">Book a call</a>
 <a href="https://www.linkedin.com/in/muthoni-ngatia/" style="border: 1px solid #12171D; color: #12171D; text-decoration: none; padding: 13px 23px; border-radius: 6px; font-weight: 500; font-size: 17px">Message on LinkedIn</a>
 </div>
-<p style="margin: 0; font-size: 17px; color: #4A525C">Or email <a href="mailto:hello@acutismetrics.com" style="font-weight: 500">hello@acutismetrics.com</a></p>
+<p style="margin: 0; font-size: 17px; color: #4A525C">Or email <span data-mail data-mail-style="font-weight: 500">hello (at) acutismetrics (dot) com</span></p>
 </div>
 <form aria-label="Contact form" action="https://formspree.io/f/xaeowqpo" method="POST" style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; border: 1px solid #DCDDD7; border-radius: 10px; padding: 32px; display: flex; flex-direction: column; gap: 18px">
 <input type="hidden" name="_subject" value="New enquiry from acutismetrics.com">
@@ -240,12 +240,34 @@ a{color:#0B6E66}a:hover{color:#08524C}
 <footer style="border-top: 1px solid #DCDDD7">
 <div style="max-width: 1160px; margin: 0 auto; padding: 28px 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: #4A525C">
 <span>© 2026 Acutis Metrics, a trade name of Acutis Data LLC</span>
-<a href="mailto:hello@acutismetrics.com" style="color: #4A525C">hello@acutismetrics.com</a>
+<span data-mail data-mail-style="color: #4A525C">hello (at) acutismetrics (dot) com</span>
 <span>Washington, DC · Nairobi</span>
 </div>
 </footer>
 
 </div>
+<script>
+/* Builds the contact address in the browser so harvesters reading the raw HTML find no address. */
+(function () {
+  function rev(t) { return t.split('').reverse().join(''); }
+  var addr = rev('olleh') + String.fromCharCode(64) + rev('moc.scirtemsituca');
+  var nodes = document.querySelectorAll('[data-mail]');
+  for (var i = 0; i < nodes.length; i++) {
+    var el = nodes[i];
+    var subject = el.getAttribute('data-mail-subject');
+    var href = 'mailto:' + addr + (subject ? '?subject=' + subject : '');
+    if (el.tagName === 'A') {
+      el.setAttribute('href', href);
+    } else {
+      var a = document.createElement('a');
+      a.setAttribute('href', href);
+      a.setAttribute('style', el.getAttribute('data-mail-style') || '');
+      a.textContent = addr;
+      el.parentNode.replaceChild(a, el);
+    }
+  }
+})();
+</script>
 <script data-goatcounter="https://acutismetrics.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
